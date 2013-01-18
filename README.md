@@ -1,7 +1,7 @@
 #Handlebar-helpers
 Is a simple way of using sessions and collections in the Meteor handlebars template environment
 
-Have a look at [Live example](http://collectionfs.meteor.com/)
+Have a look at [Live example](http://handlebar-helpers.meteor.com/)
 
 There are 4 simple handlers
 * {{getSession}}
