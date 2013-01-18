@@ -8,11 +8,15 @@ if (Meteor.isClient) {
   };
 
   Template.hello.events({
-    'click input' : function () {
+    'click .clickTheButton' : function () {
       // template data, if any, is available in 'this'
-      if (typeof console !== 'undefined')
         Session.set('appTitle', 'You pressed the button');
         testCollection.insert({ name: 'Click', createdAt: Date.now() });
+    },
+    'click .clickReset' : function () {
+      // template data, if any, is available in 'this'
+        Session.set('appTitle', 'You pressed the reset button!!');
+        testCollection.remove({});
     }
   });
 }
