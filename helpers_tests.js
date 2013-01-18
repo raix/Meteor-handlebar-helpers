@@ -142,7 +142,7 @@ testCollection.insert({ a: 1, b:2 });
 		test.equal(onscreen5.rawHtml(), '1', 'each {{find}}');
 		//console.log(onscreen5.rawHtml());
 
-		testCollection.remove({a: 1}); //Remove all
+		testCollection.remove(); //Remove all
 		Meteor.flush();
 		test.equal(onscreen1.rawHtml(), '<!--empty-->', '{{findOne}}');
 		test.equal(onscreen2.rawHtml(), '[object Object]', '{{find}}'); //Guess this allways returns an object
