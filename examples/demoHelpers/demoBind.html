@@ -1,0 +1,71 @@
+<head>
+  <title>Kalkulus</title>
+</head>
+
+<body>
+  {{> hello}}
+</body>
+
+<template name="hello">
+  <h1>Hello World!</h1>
+  <i>Testing handlebar/Collection bindings</i><br/>
+  <br/>
+  
+  <div class="container">
+    <div class="row">
+      <div class="span4">Name</div>
+      <div class="span4">Email</div>
+      <div class="span4">Action</div>
+    </div>
+
+    <div class="row">
+      <div class="span4">
+        <input {{bind 'name'}} placeholder="Name"/>{{isBindDirty 'name'}}{{bindMessage 'name'}}
+      </div>
+      <div class="span4">
+        <input {{bind 'email'}} type="email" placeholder="Email"/>{{isBindDirty 'email'}}{{bindMessage 'email'}}
+      </div>
+      <div class="span4">
+        <button {{bindAction 'create'}} class="btn">Add</button>
+        <button {{bindAction 'cancel'}} class="btn">Cancel</button>
+      </div>
+    </div>
+    {{bindMessage}}
+
+    {{#each find 'testCol' '{}'}}
+    <div class="row">
+      <div class="span4">
+        <input {{bind 'name'}} placeholder="Name"/>{{isBindDirty 'name'}}{{bindMessage 'name'}}
+      </div>
+      <div class="span4">
+        <input {{bind 'email'}} type="email" placeholder="email"/>{{isBindDirty 'email'}}{{bindMessage 'email'}}
+      </div>
+      <div class="span4">
+        <button type="button" {{bindAction 'update'}} class="btn">Update</button>
+        <a {{bindAction 'cancel'}} class="btn">Cancel</a>
+        <input type="button" value="Delete" {{bindAction 'delete'}} class="btn"/>
+      </div>
+    </div>
+    {{bindMessage}}
+    {{#validationMsg 'hello' 'name'}}
+    Success
+    {{else}}
+    Fail
+    {{/validationMsg}}
+    {{else}}
+      <div class="row">
+       <div class="span12">No data</div>
+      </div>
+    {{/each}}
+
+    <div class="row">
+      {{#each bindStatus 'hello'}}
+      {{this}}
+      {{else}}
+      No bindStatus
+      {{/each}}
+    </div>
+
+  </div>
+
+</template>
