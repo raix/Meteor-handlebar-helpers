@@ -1,12 +1,12 @@
 Package.describe({
-  summary: "Handlebar bind",
+  summary: "Handlebar helpers",
   internal: true
 });
 
 Package.on_use(function (api, where) {
   api.use(['handlebars'], 'server'); //Needed by helpers for test and live,
 
-  api.add_files(['bind-collection.js', 'bind-helpers.js', 'bind-record.js', 'bind-validators.js'], ['client', 'server']);
+  api.add_files('helpers.js', ['client', 'server']);
 });
 
 Package.on_test(function (api) {
@@ -16,8 +16,8 @@ Package.on_test(function (api) {
            'templating',
            'mongo-livedata']);
   
-  api.add_files(['bind_tests.html',
-                 'bind_tests.js',
+  api.add_files(['helpers_tests.html',
+                 'helpers_tests.js',
                  ], 'client');
 
 });
