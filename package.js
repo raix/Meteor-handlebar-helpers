@@ -4,9 +4,9 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
-  api.use(['handlebars'], 'server'); //Needed by helpers for test and live,
+  api.use('handlebars', 'client'); //Needed by helpers for test and live,
 
-  api.add_files('helpers.js', ['client', 'server']);
+  api.add_files('helpers.js', 'client');
 });
 
 Package.on_test(function (api) {
