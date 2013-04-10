@@ -1,4 +1,4 @@
-var testCollection = new Meteor.Collection('test');
+testCollection = new Meteor.Collection('test');
 
 if (Meteor.isClient) {
   Session.set('appTitle', 'Hello handlebar helpers');

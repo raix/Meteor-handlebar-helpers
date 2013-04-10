@@ -22,4 +22,10 @@
   {{else}}
   	You never clicked the button
   {{/each}}
+  {{#if $and true true}}All true{{else}}Not all are true{{/if}}<br/>
+  {{#if $or true true}}At least one is true{{else}}None are true{{/if}}<br/>
+  {{#if $not true}}Not true{{else}}Is true{{/if}}<br/>
+  {{#if $gt 2 1}}2 is greater than 1{{else}}1 is greater than 2{{/if}}<br/>
+  {{#if $lt 1 2}}1 is less than 2{{else}}2 is less than 1{{/if}}<br/>
+
 </template>
