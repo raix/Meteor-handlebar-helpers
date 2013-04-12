@@ -1,10 +1,10 @@
 if (typeof Handlebars !== 'undefined') {
     //{{getSession 'key'}}
-    Handlebars.registerHelper('getSession', function (key) {
+    Handlebars.registerHelper('getSession', function (key) { // Deprecating
       return Session.get(key);
     });
 
-    Handlebars.registerHelper('sessionEquals', function (key, value) {
+    Handlebars.registerHelper('sessionEquals', function (key, value) { // Deprecating
       return Session.equals(key, value); //When Issue #617 is resolved
     });
 
@@ -20,11 +20,11 @@ if (typeof Handlebars !== 'undefined') {
       return (a == b)?' checked': '';
     });
 
-    Handlebars.registerHelper('isConnected', function (a, b) {
+    Handlebars.registerHelper('isConnected', function (a, b) { // Deprecating
       return Meteor.status().connected;
     });
 
-    Handlebars.registerHelper('getUser', function (userId) {
+    Handlebars.registerHelper('getUser', function (userId) { // Deprecating
       return Meteor.users.findOne( (typeof(userId) == 'object')?userId[0]:userId);
     });
 
@@ -116,7 +116,7 @@ if (typeof Handlebars !== 'undefined') {
       return handleCase(text, (languageText && languageText[txt])?( (languageText[txt][Session.get('language')])?languageText[txt][Session.get('language')]: languageText[txt].en):'['+text+']' );
     };
 
-    Handlebars.registerHelper('getText', function (text) {
+    Handlebars.registerHelper('getText', function (text) { // Deprecating
       return getText(text);
     });
     
