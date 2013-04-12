@@ -142,7 +142,7 @@ if (typeof Handlebars !== 'undefined') {
       return function() { return func; };
     } // EO getNode
     
-    Handlebars.registerHelper('call', function (command) {
+    Handlebars.registerHelper('$', function (command) {
       var args = [];
       for (var i = 1; i < arguments.length-1; i++)
         args[i-1] = arguments[i];
