@@ -27,5 +27,8 @@
   {{#if $not true}}Not true{{else}}Is true{{/if}}<br/>
   {{#if $gt 2 1}}2 is greater than 1{{else}}1 is greater than 2{{/if}}<br/>
   {{#if $lt 1 2}}1 is less than 2{{else}}2 is less than 1{{/if}}<br/>
+  {{call 'console.log' 'Hello console from handlebars...'}}<br/>
+  $ can return Meteor.isClient: {{$ 'Meteor.isClient'}}
+  $ can run get session: {{$ 'Session.get' 'appTitle'}}
 
 </template>
