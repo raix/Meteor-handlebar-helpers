@@ -43,7 +43,7 @@ You can now call javascript functions or get variables in directly - *no use of 
 ```html
 Read my session: {{$ 'Session.get' 'mySession'}}
 
-Is my session equal to 4?: {{$ 'Session.get' 'mySession' 4}}
+Is my session equal to 4?: {{$ 'Session.equals' 'mySession' 4}}
 
 Does this helper render??: {{$ 'console.log' 'Nope Im writing to the console log...'}}
 
