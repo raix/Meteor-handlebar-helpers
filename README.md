@@ -4,13 +4,14 @@ Is a simple way of using sessions and collections in the Meteor handlebars templ
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
 
 There are some simple handlers
-* {{getSession key}}
-* {{sessionEquals key value}}
-* {{find collection query options}}
-* {{findOne collection query options}}
+* {{$ 'javascript' /* arguments */ }}
+* {{getSession key}} // Deprecating use: {{$ 'Session.get' key}}
+* {{sessionEquals key value}} // Deprecating use: {{$ 'Session.equals' key value}}
+* {{find collection query options}} // Deprecating 
+* {{findOne collection query options}} // Deprecating
 * {{getLength a}} *returns length property*
 * {{isConnected}}
-* {{getUser userId}} 
+* {{getUser userId}} // Deprecating use: {{$ 'Meteor.userId'}}
 * {{cutString str maxLen}} *cuts string appends...*
 * {{isSelected a b}} *if a equals b then return " selected"*
 * {{isChecked a b}} *if a equals b then return " checked"*
@@ -36,7 +37,25 @@ There are some simple handlers
 ```
 *Requires ```Meteorite``` get it at [atmosphere.meteor.com](https://atmosphere.meteor.com)*
 
-###Get session variable:
+
+###The new `$` !
+You can now call javascript functions or get variables in directly - *no use of `eval`*
+```html
+Read my session: {{$ 'Session.get' 'mySession'}}
+
+Is my session equal to 4?: {{$ 'Session.get' 'mySession' 4}}
+
+Does this helper render??: {{$ 'console.log' 'Nope Im writing to the console log...'}}
+
+What user id do I got: {{$ 'Meteor.userId'}}
+
+What's the connection status?: {{$ 'Meteor.connection.status'}}
+
+Hmm, I am client right? {{$ 'Meteor.isClient'}}
+```
+*You can access any global objects/functions/variables - and it's still reactive*
+
+###Get session variable: // Deprecating
 The ```{{getSession 'foo'}}``` helper returns the value of session variable 'foo'
 In the template:
 ```html
@@ -46,7 +65,7 @@ In the controller:
 ```js
   Session.set('foo', 'bar');
 ```
-###Compare session to value:
+###Compare session to value: // Deprecating
 The ```{{sessionEquals 'foo' 'bar'}}``` compares session 'foo' value with the ```string``` value 'bar'.
 Can use ``integer``` and ```boolean``` values for comparing aswell. *arrays and objects are invalids due to contrains in Meteor and handlebars*
 ```html
@@ -56,7 +75,7 @@ Can use ``integer``` and ```boolean``` values for comparing aswell. *arrays and 
   session 'foo' doesn't equal the value 'bar'
 {{/if}}
 ```
-###Get data in from collection
+###Get data in from collection // Deprecating
 The ```{{find 'foo' '{}'}}``` and ```{{findOne 'foo' '{}'}}``` will return qurey '{}' result from collection defined as ```var foo = new Meteor.Collection("myFooCollection")```
 From the ```demoHelpers``` example:
 
