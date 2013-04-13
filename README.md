@@ -53,7 +53,7 @@ What's the connection status?: {{$ 'Meteor.connection.status'}}
 
 Hmm, I am client right? {{$ 'Meteor.isClient'}}
 ```
-*You can access any global objects/functions/variables - and it's still reactive*
+*You can access any global objects/functions/variables - and it's still reactive!!*
 
 ###Get session variable: // Deprecating
 The ```{{getSession 'foo'}}``` helper returns the value of session variable 'foo'
