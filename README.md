@@ -4,14 +4,14 @@ Is a simple way of using sessions and collections in the Meteor handlebars templ
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
 
 There are some simple handlers
-* {{$ 'javascript' /* arguments */ }}
-* {{getSession key}} // Deprecating use: {{$ 'Session.get' key}}
-* {{sessionEquals key value}} // Deprecating use: {{$ 'Session.equals' key value}}
+* {{$.javascript /* arguments */ }}  // The new $uper helper
+* {{getSession key}} // Deprecating use: {{$.Session.get key}}
+* {{sessionEquals key value}} // Deprecating use: {{$.Session.equals key value}}
 * {{find collection query options}} // Deprecating 
 * {{findOne collection query options}} // Deprecating
 * {{getLength a}} *returns length property*
 * {{isConnected}}
-* {{getUser userId}} // Deprecating use: {{$ 'Meteor.userId'}}
+* {{getUser userId}} // Deprecating use: {{$.Meteor.userId}}
 * {{cutString str maxLen}} *cuts string appends...*
 * {{isSelected a b}} *if a equals b then return " selected"*
 * {{isChecked a b}} *if a equals b then return " checked"*
@@ -40,18 +40,19 @@ There are some simple handlers
 
 ###The new `$` !
 You can now call javascript functions or get variables in directly - *no use of `eval`*
+*At the moment only scope allowed is `Session`, `Meteor`, `console` a way to add more scope eg. collections or other is in the works*
 ```html
-Read my session: {{$ 'Session.get' 'mySession'}}
+Read my session: {{$.Session.get 'mySession'}}
 
-Is my session equal to 4?: {{$ 'Session.equals' 'mySession' 4}}
+Is my session equal to 4?: {{$.Session.equals 'mySession' 4}}
 
-Does this helper render??: {{$ 'console.log' 'Nope Im writing to the console log...'}}
+Does this helper render??: {{$.console.log 'Nope Im writing to the console log...'}}
 
-What user id do I got: {{$ 'Meteor.userId'}}
+What user id do I got: {{$.Meteor.userId}}
 
-What's the connection status?: {{$ 'Meteor.connection.status'}}
+What's the connection status?: {{$.Meteor.status.status}}
 
-Hmm, I am client right? {{$ 'Meteor.isClient'}}
+Hmm, I am client right? {{$.Meteor.isClient}}
 ```
 *You can access any global objects/functions/variables - and it's still reactive!!*
 
