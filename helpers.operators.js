@@ -120,32 +120,26 @@ if (typeof Handlebars !== 'undefined') {
       return getText(text);
     });
     
-    // Returns a function from string eg.: getNode('console.log')('Write this to log...');
-    var getNode = function(string) {
-      var splitString = string.split('.');
-      var nodeThis = window;
-
-      // Divein nodeThiss
-      if (splitString.length)
-        for (var i = 0; i < splitString.length-1; i++)
-          if (nodeThis)
-            nodeThis = nodeThis[splitString[i]];
-
-      // Get the last object    
-      var func = (nodeThis)?nodeThis[splitString[splitString.length-1]]:undefined;
-      
-      if (typeof(func) === "function")
-        return function( /* arguments */){
-          return func.apply(nodeThis, arguments);
-        };
-
-      return function() { return func; };
-    } // EO getNode
     
-    Handlebars.registerHelper('$', function (command) {
-      var args = [];
-      for (var i = 1; i < arguments.length-1; i++)
-        args[i-1] = arguments[i];
-      return getNode(command).apply(window, args);
+    /*
+        Then $uper helper - Credit goes to @belisarius222 aka Ted Blackman for sparking an idear for a solution
+    */
+    var jsAllowedScope = function (jsAllowedScope) {
+      var scope = {};         // Object to build helper scope
+      // Build scope
+      _.each(jsAllowedScope, function(reference, key) {
+        scope[key] = _.bind(function() { return this; }, reference);
+      });
+
+      return scope;
+    } // EO jsAllowedScope
+
+    var jsScope = jsAllowedScope({
+        'Session': window.Session,
+        'Meteor': window.Meteor      
+    });
+
+    Handlebars.registerHelper('$', function() {
+      return jsScope;
     });
 }
