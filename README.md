@@ -4,7 +4,7 @@ Is a simple way of using sessions and collections in the Meteor handlebars templ
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
 
 There are some simple handlers
-* {{$.javascript /* arguments */ }}  // The new $uper helper
+* __{{$.javascript /* arguments */ }}  // The new $uper helper__
 * {{getSession key}} // Deprecating use: {{$.Session.get key}}
 * {{sessionEquals key value}} // Deprecating use: {{$.Session.equals key value}}
 * {{find collection query options}} // Deprecating 
@@ -28,6 +28,8 @@ There are some simple handlers
 * {{$not a}}
 * {{$exists a}} *a != undefined*
 * {{getText notation}} *translation!!*
+
+*A special credit goes to @belisarius222 aka Ted Blackman for sparking an idear for a solution for the new $uper helper, Thanks Ted!*
 
 ##How to use?
 
