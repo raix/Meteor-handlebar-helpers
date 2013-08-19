@@ -5,6 +5,7 @@ Package.describe({
 
 Package.on_use(function (api, where) {
   api.use('handlebars', 'client'); //Needed by helpers for test and live,
+  api.use('session', 'client');
 
   api.add_files(
           ['helpers.db.js',
