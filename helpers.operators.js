@@ -135,8 +135,8 @@ if (typeof Handlebars !== 'undefined') {
     } // EO jsAllowedScope
 
     var jsScope = jsAllowedScope({
-        'Session': window.Session,
-        'Meteor': window.Meteor      
+        'Session': Session,
+        'Meteor': Meteor      
     });
 
     Handlebars.registerHelper('$', function() {
