@@ -4,8 +4,6 @@ Package.describe({
 });
 
 Package.on_use(function (api, where) {
-  api.use('handlebars', 'client'); //Needed by helpers for test and live,
-  api.use('session', 'client');
   api.use('standard-app-packages', 'client');
 
   api.add_files(
