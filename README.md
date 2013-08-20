@@ -7,8 +7,6 @@ There are some simple handlers
 * __{{$.javascript /* arguments */ }}  // The new $cript helper__
 * {{$.Session.get key}}
 * {{$.Session.equals key value}}
-* {{find collection query options}} // Deprecating 
-* {{findOne collection query options}} // Deprecating
 * {{getLength a}} *returns length property*
 * {{$.Meteor.status.connected}}
 * {{$.Meteor.userId}}
@@ -69,19 +67,6 @@ Example:
 
 ###Remove objects from scope
 `Helpers.removeScope(name);`
-
-###Get data in from collection // Deprecating
-The ```{{find 'foo' '{}'}}``` and ```{{findOne 'foo' '{}'}}``` will return qurey '{}' result from collection defined as ```var foo = new Meteor.Collection("myFooCollection")```
-From the ```demoHelpers``` example:
-
-```html
-  {{#each find 'testCollection' '{}' '{ "sort": { "createdAt":1 } }'}}
-    {{name}} - timeStamp: {{createdAt}}</br>
-  {{else}}
-    You never clicked the button
-  {{/each}}
-```
-*Note: query and options should be formatted as json, since attributes as Objects and Arrays aren't supported by the Meteor handlebars*
 
 ###getText translation
 adds a global getText(notation)
