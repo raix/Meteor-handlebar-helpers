@@ -1,31 +1,20 @@
-if (typeof Handlebars !== 'undefined') {
-    //{{getSession 'key'}}
-    Handlebars.registerHelper('getSession', function (key) { // Deprecating
-      return Session.get(key);
-    });
+ // Helper scope
+ if (!Helpers) {
+  Helpers = {};
+ }
 
-    Handlebars.registerHelper('sessionEquals', function (key, value) { // Deprecating
-      return Session.equals(key, value); //When Issue #617 is resolved
-    });
+if (typeof Handlebars !== 'undefined') {
 
     Handlebars.registerHelper('getLength', function (a) {
-      return a.length;
+      return a && a.length;
     });
 
     Handlebars.registerHelper('isSelected', function (a, b) {
-      return (a == b)?' selected': '';
+      return (a === b)?' selected': '';
     });
 
     Handlebars.registerHelper('isChecked', function (a, b) {
-      return (a == b)?' checked': '';
-    });
-
-    Handlebars.registerHelper('isConnected', function (a, b) { // Deprecating
-      return Meteor.status().connected;
-    });
-
-    Handlebars.registerHelper('getUser', function (userId) { // Deprecating
-      return Meteor.users.findOne( (typeof(userId) == 'object')?userId[0]:userId);
+      return (a === b)?' checked': '';
     });
 
     Handlebars.registerHelper('cutString', function (str, len) {
@@ -33,23 +22,23 @@ if (typeof Handlebars !== 'undefined') {
     });
 
     Handlebars.registerHelper('$eq', function (a, b) {
-      return (a == b); //Only text, numbers, boolean - not array & objects
+      return (a === b); //Only text, numbers, boolean - not array & objects
     });
 
     Handlebars.registerHelper('$neq', function (a, b) {
-      return (a != b); //Only text, numbers, boolean - not array & objects
+      return (a !== b); //Only text, numbers, boolean - not array & objects
     });
 
     Handlebars.registerHelper('$in', function (a, b, c, d) {
-      return ( a == b || a == c || a == d);
+      return ( a === b || a === c || a === d);
     });
 
     Handlebars.registerHelper('$nin', function (a, b, c, d) {
-      return ( a != b || a != c || a != d);
+      return ( a !== b || a !== c || a !== d);
     });
 
     Handlebars.registerHelper('$exists', function (a) {
-      return ( a != undefined);
+      return ( a !== undefined);
     });
 
     Handlebars.registerHelper('$lt', function (a, b) {
@@ -81,6 +70,10 @@ if (typeof Handlebars !== 'undefined') {
       return (!a);
     });
 
+    Handlebars.registerHelper('getText', function (text) { // Deprecating
+      return Helpers.getText(text);
+    });
+
     // Handlebars.registerHelper('userRole', function ( /* arguments */) {
     //   var role = Session.get('currentRole');
     //   return _.any(arguments, function(value) { return (value == role); });
@@ -93,9 +86,23 @@ if (typeof Handlebars !== 'undefined') {
     // getText('Say.hello.to.me') == 'Say hello to me:)'; // uppercase first letter, rest lowercase
     // getText('Say.Hello.To.Me') == 'Say Hello To Me:)'; // camelCase
 
-    Session.setDefault('language', 'en');
+    var _languageDeps = new Deps.Dependency();
+    var currentLanguage = 'en';
 
-    window.getText = function(text) {
+    // language = 'en'
+    Helpers.setLanguage = function(language) {
+      if (language && language !== currentLanguage) {
+        currentLanguage = language;
+        _languageDeps.changed();
+      }
+    };
+
+    Helpers.language = function() {
+      _languageDeps.depend();
+      return currentLanguage;
+    };
+
+    Helpers.getText = function(text) {
       // handleCase will mimic text Case making src same case as text
       function handleCase(text, src) {
         // Return lowercase
@@ -113,33 +120,29 @@ if (typeof Handlebars !== 'undefined') {
         });
       }
       var txt = text.toLowerCase();
-      return handleCase(text, (languageText && languageText[txt])?( (languageText[txt][Session.get('language')])?languageText[txt][Session.get('language')]: languageText[txt].en):'['+text+']' );
+      // TODO: Tidy the return line - kinda messy
+      return handleCase(text, (languageText && languageText[txt])?( (languageText[txt][Helpers.language()])?languageText[txt][Helpers.language()]: languageText[txt].en):'['+text+']' );
     };
 
-    Handlebars.registerHelper('getText', function (text) { // Deprecating
-      return getText(text);
-    });
-    
-    
     /*
         Then $uper helper - Credit goes to @belisarius222 aka Ted Blackman for sparking an idear for a solution
     */
-    var jsAllowedScope = function (jsAllowedScope) {
-      var scope = {};         // Object to build helper scope
-      // Build scope
-      _.each(jsAllowedScope, function(reference, key) {
-        scope[key] = _.bind(function() { return this; }, reference);
-      });
+    Helpers.superScope = {};
 
-      return scope;
-    } // EO jsAllowedScope
+    Helpers.addScope = function(name, obj) {
+      console.log('Helper scope added ' + name);
+      // TODO: Get rid of underscore
+      Helpers.superScope[name] = _.bind(function() { return this; }, obj);
+    };
 
-    var jsScope = jsAllowedScope({
-        'Session': window.Session,
-        'Meteor': window.Meteor      
-    });
+    Helpers.removeScope = function(name) {
+      delete Helpers.superScope[name];
+    };
+    
+    Helpers.addScope('Session', Session);
+    Helpers.addScope('Meteor', Meteor);
 
     Handlebars.registerHelper('$', function() {
-      return jsScope;
+      return Helpers.superScope;
     });
 }

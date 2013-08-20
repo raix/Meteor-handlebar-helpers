@@ -5,25 +5,25 @@
 <!-- Test getSession -->
 
 <template name="test_helpers_10">
-  {{getSession 'test'}}
+  {{$.Session.get 'test'}}
 </template>
 
 <!-- Test sessionEquals -->
 
 <template name="test_helpers_20">
-  {{sessionEquals 'test' 'sdfsdfdsf'}}
+  {{$.Session.equals 'test' 'sdfsdfdsf'}}
 </template>
 
 <template name="test_helpers_21">
-  {{sessionEquals 'test' 1}}
+  {{$.Session.equals 'test' 1}}
 </template>
 
 <template name="test_helpers_22">
-  {{sessionEquals 'test' '1'}}
+  {{$.Session.equals 'test' '1'}}
 </template>
 
 <template name="test_helpers_23">
-  {{sessionEquals 'test' ['a', 'b', 'c']}}
+  {{$.Session.equals 'test' ['a', 'b', 'c']}}
 </template>
 
 <!--
@@ -32,15 +32,15 @@
 </template> -->
 
 <template name="test_helpers_25">
-  {{sessionEquals 'test' true}}
+  {{$.Session.equals 'test' true}}
 </template>
 
 <template name="test_helpers_26">
-  {{sessionEquals 'test' false}}
+  {{$.Session.equals 'test' false}}
 </template>
 
 <template name="test_helpers_27">
-  {{#if sessionEquals 'test' false}}Test is false{{else}}Test is true{{/if}}
+  {{#if $.Session.equals 'test' false}}Test is false{{else}}Test is true{{/if}}
 </template>
 
 <!-- Test find -->

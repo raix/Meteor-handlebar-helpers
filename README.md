@@ -4,14 +4,14 @@ Is a simple way of using sessions and collections in the Meteor handlebars templ
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
 
 There are some simple handlers
-* __{{$.javascript /* arguments */ }}  // The new $uper helper__
-* {{getSession key}} // Deprecating use: {{$.Session.get key}}
-* {{sessionEquals key value}} // Deprecating use: {{$.Session.equals key value}}
+* __{{$.javascript /* arguments */ }}  // The new $cript helper__
+* {{$.Session.get key}}
+* {{$.Session.equals key value}}
 * {{find collection query options}} // Deprecating 
 * {{findOne collection query options}} // Deprecating
 * {{getLength a}} *returns length property*
-* {{isConnected}}
-* {{getUser userId}} // Deprecating use: {{$.Meteor.userId}}
+* {{$.Meteor.status.connected}}
+* {{$.Meteor.userId}}
 * {{cutString str maxLen}} *cuts string appends...*
 * {{isSelected a b}} *if a equals b then return " selected"*
 * {{isChecked a b}} *if a equals b then return " checked"*
@@ -58,26 +58,18 @@ Hmm, I am client right? {{$.Meteor.isClient}}
 ```
 *You can access any global objects/functions/variables - and it's still reactive!!*
 
-###Get session variable: // Deprecating
-The ```{{getSession 'foo'}}``` helper returns the value of session variable 'foo'
-In the template:
-```html
-<h1>{{getSession 'foo'}}</h1>
-``` 
-In the controller:
+###Add objects to the $cope
+Use the `Helpers.addScope(name, obj)` to add objects into the `$` scope.
+Example:
 ```js
-  Session.set('foo', 'bar');
+  Helpers.addScope('Session', Session);
+  Helpers.addScope('Meteor', Meteor);
 ```
-###Compare session to value: // Deprecating
-The ```{{sessionEquals 'foo' 'bar'}}``` compares session 'foo' value with the ```string``` value 'bar'.
-Can use ``integer``` and ```boolean``` values for comparing aswell. *arrays and objects are invalids due to contrains in Meteor and handlebars*
-```html
-{{#if sessionEquals 'foo' 'bar'}}
-  session 'foo' equals the value 'bar'
-{{else}}
-  session 'foo' doesn't equal the value 'bar'
-{{/if}}
-```
+*It's the default scope and allows javascript access {{$.Meteor.isClient}} etc.*
+
+###Remove objects from scope
+`Helpers.removeScope(name);`
+
 ###Get data in from collection // Deprecating
 The ```{{find 'foo' '{}'}}``` and ```{{findOne 'foo' '{}'}}``` will return qurey '{}' result from collection defined as ```var foo = new Meteor.Collection("myFooCollection")```
 From the ```demoHelpers``` example:
@@ -117,5 +109,9 @@ Expects a global object to contain translations - fallsback if not found.
 ```html
   {{getText 'Say.hello.to.me'}}
 ```
-Use `Session.set('language', 'en');` to change language on the fly.
+###Set language
+Use `Helpers.setLanguage('en');` to change language on the fly.
+
+###Get current language
+Use the reactive `Helpers.language()` to get the current language
 

@@ -7,9 +7,9 @@
 </body>
 
 <template name="hello">
-  <h1>{{getSession 'appTitle'}}</h1>
-  {{#if Session.equals 'appTitle' 'You pressed the button'}}
-  	Session.equals says you've pressed the button..
+  <h1>{{$.Session.get 'appTitle'}}</h1>
+  {{#if $.Session.equals 'appTitle' 'You pressed the button'}}
+  	$.Session.equals says you've pressed the button..
   {{else}}
   	{{greeting}}
   {{/if}}
@@ -17,7 +17,7 @@
   <input type="button" value="Click" class="clickTheButton"/><br/>
   <input type="button" value="Reset" class="clickReset"/><br/>
   <br/>
-  {{#each find 'testCollection' '{}' '{ "sort": { "createdAt":1 } }'}}
+  {{#each $.testCollection.find}}
   	{{name}} - timeStamp: {{createdAt}}</br>
   {{else}}
   	You never clicked the button
@@ -27,7 +27,7 @@
   {{#if $not true}}Not true{{else}}Is true{{/if}}<br/>
   {{#if $gt 2 1}}2 is greater than 1{{else}}1 is greater than 2{{/if}}<br/>
   {{#if $lt 1 2}}1 is less than 2{{else}}2 is less than 1{{/if}}<br/>
-  $ can return Meteor.isClient: {{$.Meteor.isClient}}
+  $ can return Meteor.isClient: {{$.Meteor.isClient}}<br/>
   $ can run get session: {{$.Session.get 'appTitle'}}<br/>
   $.Meteor.status.connected = 
   {{#if $.Meteor.status.connected}}
@@ -35,4 +35,10 @@
   {{else}}
   false
   {{/if}}<br/>
+  <br/>
+  getText test:<br/>
+  {{getText 'say.hello.to.me'}}<br/>
+  {{getText 'Say.hello.to.me'}}<br/>
+  {{getText 'Say.Hello.To.Me'}}<br/>
+  {{getText 'SAY.HELLO.TO.ME'}}<br/>
 </template>

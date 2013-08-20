@@ -1,4 +1,4 @@
-var	testCollection = new Meteor.Collection(null);
+window.testCollection = new Meteor.Collection('test', { connection: null });
 
 (function () {
   Tinytest.add('Handlebar helpers - init session templates', function (test) {
@@ -7,8 +7,7 @@ var	testCollection = new Meteor.Collection(null);
 	});
 
 	Tinytest.add('Handlebar helpers - init session helpers', function (test) {
-	  test.notEqual(Handlebars._default_helpers['getSession'], undefined, 'getSession: Handlebars loaded after session_helpers?');
-	  test.notEqual(Handlebars._default_helpers['sessionEquals'], undefined, 'sessionEquals: Handlebars loaded after session_helpers?');
+	  test.notEqual(Handlebars._default_helpers['$'], undefined, '$: Handlebars loaded after session_helpers?');
 	  test.notEqual(Handlebars._default_helpers['find'], undefined, 'find: Handlebars loaded after session_helpers?');
 	  test.notEqual(Handlebars._default_helpers['findOne'], undefined, 'findOne: Handlebars loaded after session_helpers?');
 	});
@@ -51,7 +50,7 @@ var	testCollection = new Meteor.Collection(null);
 		Session.set('test', 1);
 		Meteor.flush();
 		test.equal(onscreen.rawHtml(), 'true');
-		test.equal(onscreen2.rawHtml(), 'true');
+		test.equal(onscreen2.rawHtml(), 'false');
 		test.equal(onscreen3.rawHtml(), 'false');
 
 		Session.set('test', 'ok');
