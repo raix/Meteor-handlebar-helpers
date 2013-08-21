@@ -1,7 +1,7 @@
  // Helper scope
- if (!Helpers) {
-  Helpers = {};
- }
+if (typeof Helpers === 'undefined') {
+    Helpers = {};
+}
 
 if (typeof Handlebars !== 'undefined') {
 
