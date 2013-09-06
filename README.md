@@ -1,4 +1,4 @@
-#Handlebar-helpers
+#Handlebar-helpers [![Build Status](https://travis-ci.org/raix/Meteor-handlebar-helpers.png?branch=master)](https://travis-ci.org/raix/Meteor-handlebar-helpers)
 Is a simple way of using sessions and collections in the Meteor handlebars template environment
 
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
