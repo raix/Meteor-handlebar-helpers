@@ -50,11 +50,11 @@ if (typeof Handlebars !== 'undefined') {
     });
 
     Handlebars.registerHelper('$lte', function (a, b) {
-      return (a < b);
+      return (a <= b);
     });
 
     Handlebars.registerHelper('$gte', function (a, b) {
-      return (a > b);
+      return (a >= b);
     });
 
 
