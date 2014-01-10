@@ -34,7 +34,7 @@ if (typeof Handlebars !== 'undefined') {
     });
 
     Handlebars.registerHelper('$nin', function (a, b, c, d) {
-      return ( a !== b || a !== c || a !== d);
+      return ( a !== b && a !== c && a !== d);
     });
 
     Handlebars.registerHelper('$exists', function (a) {
