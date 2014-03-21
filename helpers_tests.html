@@ -26,10 +26,14 @@
   {{$.Session.equals 'test' ['a', 'b', 'c']}}
 </template>
 
-<!--
+<!-- This still fails:
 <template name="test_helpers_24">
   {{sessionEquals 'test' {foo: 'bar'} }}
 </template> -->
+
+<template name="test_helpers_24">
+  {{sessionEquals 'test' value }}
+</template>
 
 <template name="test_helpers_25">
   {{$.Session.equals 'test' true}}

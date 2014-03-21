@@ -1,11 +1,10 @@
 Package.describe({
-  summary: "Handlebar helpers",
-  internal: true
+  summary: "Handlebar helpers"
 });
 
 Package.on_use(function (api) {
   // Spark engine requires 'handlebars', Meteor UI requires 'templating'
-  api.use(['handlebars', 'templating', 'session', 'underscore', 'deps'], 'client'); //Needed by helpers for test and live,
+  api.use(['ui', 'session', 'underscore', 'deps'], 'client'); //Needed by helpers for test and live,
 
   api.export && api.export('Helpers');
 
@@ -14,7 +13,7 @@ Package.on_use(function (api) {
 
 Package.on_test(function (api) {
   api.use(['tinytest',
-           'handlebars',
+           'ui',
            'test-helpers', 
            'session', 
            'templating',

@@ -1,64 +1,65 @@
 window.testCollection = new Meteor.Collection('test', { connection: null });
 
-(function () {
   Tinytest.add('Handlebar helpers - init session templates', function (test) {
-	  var frag = Meteor.render(Template.test_helpers_00);
-	  test.equal(canonicalizeHtml(DomUtils.fragmentToHtml(frag)), "Hi");
+	  test.equal(Template.test_helpers_00.render(), "Hi");
 	});
 
 	Tinytest.add('Handlebar helpers - init session helpers', function (test) {
-	  test.notEqual(Handlebars._default_helpers['$'], undefined, '$: Handlebars loaded after session_helpers?');
-	  // test.notEqual(Handlebars._default_helpers['find'], undefined, 'find: Handlebars loaded after session_helpers?');
-	  // test.notEqual(Handlebars._default_helpers['findOne'], undefined, 'findOne: Handlebars loaded after session_helpers?');
+	  test.notEqual(Handlebars._globalHelpers['$'], undefined, '$: Handlebars loaded after session_helpers?');
+	  // test.notEqual(Handlebars._globalHelpers['find'], undefined, 'find: Handlebars loaded after session_helpers?');
+	  // test.notEqual(Handlebars._globalHelpers['findOne'], undefined, 'findOne: Handlebars loaded after session_helpers?');
 	});
 
 	Tinytest.add('Handlebar helpers - test {{getSession}}', function (test) {
 		Session.set('test', undefined);
-		var onscreen = OnscreenDiv(Meteor.render(Template.test_helpers_10));
-		test.include(["<!--empty-->", 'ok'], onscreen.rawHtml(), 'getSession should be empty or set from last session');
+		var onscreen = Template.test_helpers_10.render();
+
+		test.isNull(onscreen(), 'getSession should be empty or set from last session');
+
 		Session.set('test', 'jlfkjsdfldf');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), "jlfkjsdfldf", 'getSession dont return as expected');
+
+		test.equal(onscreen(), "jlfkjsdfldf", 'getSession dont return as expected');
+
 		Session.set('test', 'ok');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), "ok", 'getSession dont return "ok" as expected');
-		onscreen.kill();
+
+		test.equal(onscreen(), "ok", 'getSession dont return "ok" as expected');
+
 	});
 
 	Tinytest.add('Handlebar helpers - {{sessionEquals}} String', function (test) {
 		//Template.test_helpers_20
 		Session.set('test', undefined);
-		var onscreen = OnscreenDiv(Meteor.render(Template.test_helpers_20));
-		test.equal(onscreen.rawHtml(), 'false');
+		var onscreen = Template.test_helpers_20.render();
+		test.isNull(onscreen());
 		Session.set('test', 'sdfsdfdsf');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), 'true');
+
+		test.equal(onscreen(), 'true');
 		Session.set('test', 'ok');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), 'false');
-		onscreen.kill();
+
+		test.isNull(onscreen());
+
 	});
 
 	Tinytest.add('Handlebar helpers - {{sessionEquals}} Integer', function (test) {
 		//Template.test_helpers_21
 		Session.set('test', undefined);
-		var onscreen = OnscreenDiv(Meteor.render(Template.test_helpers_21));
-		var onscreen2 = OnscreenDiv(Meteor.render(Template.test_helpers_22));
-		var onscreen3 = OnscreenDiv(Meteor.render(Template.test_helpers_20));
-		test.equal(onscreen.rawHtml(), 'false');
+		var onscreen = Template.test_helpers_21.render();
+		var onscreen2 = Template.test_helpers_22.render();
+		var onscreen3 = Template.test_helpers_20.render();
+		test.isNull(onscreen());
 		
 		Session.set('test', 1);
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), 'true');
-		test.equal(onscreen2.rawHtml(), 'false');
-		test.equal(onscreen3.rawHtml(), 'false');
+
+		test.equal(onscreen(), 'true');
+		test.isNull(onscreen2());
+		test.isNull(onscreen3());
 
 		Session.set('test', 'ok');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), 'false');
-		onscreen.kill();
-		onscreen2.kill();
-		onscreen3.kill();
+
+		test.isNull(onscreen());
+
+
+
 
 	});
 
@@ -67,68 +68,72 @@ window.testCollection = new Meteor.Collection('test', { connection: null });
 		//Test of arrays
 		//Template.test_helpers_23
 		Session.set('test', undefined);
-		var onscreen = OnscreenDiv(Meteor.render(Template.test_helpers_23));
-		//test.equal(onscreen.rawHtml(), 'false');
+		var onscreen = Template.test_helpers_23.render();
+		//test.equal(onscreen(), 'false');
 		Session.set('test', ['a', 'b', 'c']);
-		Meteor.flush();
+
 		// Setting this to false - should be true - but arrays are not supported
-		test.equal(onscreen.rawHtml(), 'false', 'Issue 617, This fails due to lack of support for value input as array');
+		test.isNull(onscreen(), 'Issue 617, This fails due to lack of support for value input as array');
 		Session.set('test', 'ok');
-		Meteor.flush();
-		test.equal(onscreen.rawHtml(), 'false');
-		onscreen.kill();
+
+		test.isNull(onscreen());
+
 	});
 
 	//XXX: Only string and int can be passed as parametre for helpers?
 	Tinytest.add('Handlebar helpers - {{sessionEquals}} Objects', function (test) {
+		Template.test_helpers_24.value = function() {
+			return {foo: 'bar'};
+		};
 		//Test of arrays
 		//Template.test_helpers_23
 		Session.set('test', undefined);
-		var onscreen = OnscreenDiv(Meteor.render(Template.test_helpers_24));
+		var onscreen = Template.test_helpers_24.render();
 		// Should be notEqual
-		test.equal(Template.test_helpers_24, undefined, 'Handlebars does not support objects as input in helpers');
-		//test.equal(onscreen.rawHtml(), 'false');
+		test.equal(typeof Template.test_helpers_24, 'object', 'Handlebars does not support objects as input in helpers');
+		//test.equal(onscreen(), 'false');
 		Session.set('test', {foo: 'bar'});
-		Meteor.flush();
+
 		// Should be true
-		test.equal(onscreen.rawHtml(), 'undefined', 'Issue 617, This fails due to lack of support for value input as objects');
+		test.isNull(onscreen(), 'Issue 617, This fails due to lack of support for value input as objects');
 		Session.set('test', 'ok');
-		Meteor.flush();
+
 		// Should be false
-		test.equal(onscreen.rawHtml(), 'undefined');
-		onscreen.kill();
+		test.isNull(onscreen());
+
 	});
 
 	Tinytest.add('Handlebar helpers - {{sessionEquals}} Boolean', function (test) {
 		//Template.test_helpers_24
 		Session.set('test', undefined);
-		var onscreen1 = OnscreenDiv(Meteor.render(Template.test_helpers_25));
-		var onscreen2 = OnscreenDiv(Meteor.render(Template.test_helpers_26));
-		var onscreen3 = OnscreenDiv(Meteor.render(Template.test_helpers_27)); //Test if sessionEquals
-		test.equal(onscreen1.rawHtml(), 'false');
+		var onscreen1 = Template.test_helpers_25.render();
+		var onscreen2 = Template.test_helpers_26.render();
+		var onscreen3 = Template.test_helpers_27.render(); //Test if sessionEquals
+
+		test.isNull(onscreen1());
 		Session.set('test', true);
-		Meteor.flush();
-		test.equal(onscreen1.rawHtml(), 'true');
-		test.equal(onscreen2.rawHtml(), 'false');
-		test.equal(onscreen3.rawHtml(), 'Test is true');
+
+		test.equal(onscreen1(), 'true');
+		test.isNull(onscreen2());
+		test.equal(onscreen3().render(), 'Test is true');
 		Session.set('test', false);
-		Meteor.flush();
-		test.equal(onscreen1.rawHtml(), 'false');
-		test.equal(onscreen2.rawHtml(), 'true');
-		test.equal(onscreen3.rawHtml(), 'Test is false');
-		onscreen1.kill();
-		onscreen2.kill();
-		onscreen3.kill();
+
+		test.isNull(onscreen1());
+		test.equal(onscreen2(), 'true');
+		test.equal(onscreen3().render(), 'Test is false');
+
+
+
 	});
 
 	// Tinytest.addAsync("Handlebar helpers - test {{findOne}} and {{find}}", function (test, onComplete) {
 	// 	testCollection.insert({ a: 1, b:2 });
 
-	// 	var onscreen1 = OnscreenDiv(Meteor.render(Template.test_helpers_30)); //findOne
-	// 	var onscreen2 = OnscreenDiv(Meteor.render(Template.test_helpers_31)); //find
-	// 	var onscreen3 = OnscreenDiv(Meteor.render(Template.test_helpers_32)); //with find
-	// 	var onscreen4 = OnscreenDiv(Meteor.render(Template.test_helpers_33)); //with find return a
-	// 	var onscreen5 = OnscreenDiv(Meteor.render(Template.test_helpers_34)); //each find return a
+	// 	var onscreen1 = Template.test_helpers_30.render(); //findOne
+	// 	var onscreen2 = Template.test_helpers_31.render(); //find
+	// 	var onscreen3 = Template.test_helpers_32.render(); //with find
+	// 	var onscreen4 = Template.test_helpers_33.render(); //with find return a
+	// 	var onscreen5 = Template.test_helpers_34.render(); //each find return a
 
 	// 	test.notEqual(Template.test_helpers_30, undefined, 'findOne');
 	// 	test.notEqual(Template.test_helpers_31, undefined, 'find');
@@ -136,30 +141,28 @@ window.testCollection = new Meteor.Collection('test', { connection: null });
 	// 	test.notEqual(Template.test_helpers_33, undefined, 'with return a');
 	// 	test.notEqual(Template.test_helpers_34, undefined, 'each return a');
 
-	// 	test.equal(onscreen1.rawHtml(), '[object Object]', '{{findOne}}');
-	// 	test.equal(onscreen2.rawHtml(), '[object Object]', '{{find}}');
-	// 	test.equal(onscreen3.rawHtml(), 'ok', 'with {{findOne}}');
-	// 	test.equal(onscreen4.rawHtml(), '1', 'with {{findOne}}');
-	// 	test.equal(onscreen5.rawHtml(), '1', 'each {{find}}');
-	// 	//console.log(onscreen5.rawHtml());
+	// 	test.equal(onscreen1(), '[object Object]', '{{findOne}}');
+	// 	test.equal(onscreen2(), '[object Object]', '{{find}}');
+	// 	test.equal(onscreen3(), 'ok', 'with {{findOne}}');
+	// 	test.equal(onscreen4(), '1', 'with {{findOne}}');
+	// 	test.equal(onscreen5(), '1', 'each {{find}}');
+	// 	//console.log(onscreen5());
 
 	// 	testCollection.remove({}); //Remove all
-	// 	Meteor.flush();
-	// 	test.equal(onscreen1.rawHtml(), '<!--empty-->', '{{findOne}}');
-	// 	test.equal(onscreen2.rawHtml(), '[object Object]', '{{find}}'); //Guess this allways returns an object
-	// 	//test.equal(onscreen3.rawHtml(), 'ok', 'with {{findOne}}');
-	// 	test.equal(onscreen4.rawHtml(), '<!--empty-->', 'with {{findOne}}');
-	// 	test.equal(onscreen5.rawHtml(), 'none', 'each {{find}}');
-	// 	//console.log(onscreen5.rawHtml());
-	// 	onscreen1.kill();
-	// 	onscreen2.kill();
-	// 	onscreen3.kill();
-	// 	onscreen4.kill();
-	// 	onscreen5.kill();
+
+	// 	test.equal(onscreen1(), '<!--empty-->', '{{findOne}}');
+	// 	test.equal(onscreen2(), '[object Object]', '{{find}}'); //Guess this allways returns an object
+	// 	//test.equal(onscreen3(), 'ok', 'with {{findOne}}');
+	// 	test.equal(onscreen4(), '<!--empty-->', 'with {{findOne}}');
+	// 	test.equal(onscreen5(), 'none', 'each {{find}}');
+	// 	//console.log(onscreen5());
+
+
+
+
+
 	// 	onComplete();
 	// });
-
-}());
 
 //Test API:
 //test.isFalse(v, msg)

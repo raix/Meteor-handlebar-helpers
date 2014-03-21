@@ -1,10 +1,9 @@
- // Helper scope
+// Helper scope
 if (typeof Helpers === 'undefined') {
     Helpers = {};
 }
 
 if (typeof Handlebars !== 'undefined') {
-
     Handlebars.registerHelper('getLength', function (a) {
       return a && a.length;
     });
@@ -135,6 +134,7 @@ if (typeof Handlebars !== 'undefined') {
     };
 
     Helpers.removeScope = function(name) {
+      delete Handlebars._globalHelpers[name];
       delete Helpers.superScope[name];
     };
     

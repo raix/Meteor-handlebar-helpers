@@ -1,6 +1,6 @@
 {
   "name": "handlebar-helpers",
-  "description": "Meteor handlebar helpers, $.Session.get, $.Session.equals, find, findOne",
+  "description": "Meteor Blaze helpers, $.Session.get, $.Session.equals",
   "homepage": "https://github.com/raix/Meteor-handlebar-helpers",
   "author": "Morten Henriksen  (http://gi-software.com)",
   "version": "0.0.9",
