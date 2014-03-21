@@ -1,5 +1,8 @@
 #Handlebar-helpers [![Build Status](https://travis-ci.org/raix/Meteor-handlebar-helpers.png?branch=master)](https://travis-ci.org/raix/Meteor-handlebar-helpers) [![Donate](https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=USMGD474VJH7W)
 
+####Important!
+Current version is on Blaze, if you need to use the spark version its on `0.0.9`
+
 Is a simple way of using sessions and collections in the Meteor handlebars template environment
 
 Have a look at [Live example](http://handlebar-helpers.meteor.com/)
