@@ -1,3 +1,16 @@
+// Forward compability
+if (typeof UI === 'undefined' || typeof UI.registerHelper !== 'function') {
+  UI = {
+    registerHelper: function(name, f) {
+      if (typeof Handlebars !== 'undefined') {
+        return Handlebars.registerHelper(name, f);
+      } else {
+        throw new Error('No UI or Handlebars found');
+      }
+    }
+  };
+}
+
 // Helper scope
 if (typeof Helpers === 'undefined') {
     Helpers = {};
