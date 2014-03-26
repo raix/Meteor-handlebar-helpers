@@ -18,7 +18,6 @@ Package.on_test(function (api) {
            'session', 
            'templating',
            'mongo-livedata',
-           'domutils',
            'handlebar-helpers']);
   
   api.add_files(['helpers_tests.html',
