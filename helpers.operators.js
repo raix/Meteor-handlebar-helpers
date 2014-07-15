@@ -97,6 +97,7 @@ if (typeof UI !== 'undefined') {
     // getText('SAY.HELLO.TO.ME') == 'SAY HELLO TO ME:)'; // uppercase
     // getText('Say.hello.to.me') == 'Say hello to me:)'; // uppercase first letter, rest lowercase
     // getText('Say.Hello.To.Me') == 'Say Hello To Me:)'; // camelCase
+    // getText('SAy.hello.to.me') == 'Say hello To me:)'; // ignore case sensitivity
 
     var _languageDeps = new Deps.Dependency();
     var currentLanguage = 'en';
@@ -126,6 +127,9 @@ if (typeof UI !== 'undefined') {
         // Return uppercase first letter, rest lowercase
         if (text.substr(1) == text.substr(1).toLowerCase() )
           return src.substr(0, 1).toUpperCase()+src.substr(1).toLowerCase();
+        // Return src withour changes
+        if (text.substr(0,2) == text.substr(0,2).toUpperCase())
+          return src;
         // Return CamelCase
         return src.replace(/( [a-z])/g, function($1){
           return $1.toUpperCase();
