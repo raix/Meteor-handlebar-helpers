@@ -1,11 +1,17 @@
 Package.describe({
-  version: '0.0.0',
+  name: 'raix:handlebar-helpers',
+  version: '0.1.2',
   summary: "Handlebar helpers"
 });
 
 Package.on_use(function (api) {
   // Spark engine requires 'handlebars', Meteor UI requires 'templating'
-  api.use(['ui', 'session', 'underscore', 'deps'], 'client'); //Needed by helpers for test and live,
+  api.use([
+    'ui@1.0.0',
+    'session@1.0.0',
+    'underscore@1.0.0',
+    'deps@1.0.0'
+  ], 'client'); //Needed by helpers for test and live,
 
   api.export && api.export('Helpers');
 
@@ -19,7 +25,7 @@ Package.on_test(function (api) {
            'session', 
            'templating',
            'mongo-livedata',
-           'handlebar-helpers']);
+           'raix:handlebar-helpers']);
   
   api.add_files(['helpers_tests.html',
                  'helpers_tests.js',
