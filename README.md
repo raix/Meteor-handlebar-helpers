@@ -15,6 +15,7 @@ There are some simple handlers
 * {{$.Meteor.status.connected}}
 * {{$.Meteor.userId}}
 * {{cutString str maxLen}} *cuts string appends...*
+* {{nl2br text}} *nl2br function for text
 * {{isSelected a b}} *if a equals b then return " selected"*
 * {{isChecked a b}} *if a equals b then return " checked"*
 * {{$eq a b}} *if a equals b then return true*
@@ -92,6 +93,7 @@ Expects a global object to contain translations - fallsback if not found.
     getText('SAY.HELLO.TO.ME') == 'SAY HELLO TO ME :)'; // uppercase
     getText('Say.hello.to.me') == 'Say hello to me :)'; // uppercase first letter, rest lowercase
     getText('Say.Hello.To.Me') == 'Say Hello To Me :)'; // camelCase
+    getText('SAy.hello.to.me') == 'Say hello to me :)'; // ignore case sensitivity
 
 ```
 
