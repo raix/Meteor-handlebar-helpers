@@ -1,6 +1,6 @@
 Package.describe({
   name: 'raix:handlebar-helpers',
-  version: '0.1.2',
+  version: '0.1.3',
   summary: "Handlebar helpers"
 });
 
