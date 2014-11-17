@@ -1,7 +1,8 @@
 Package.describe({
   name: 'raix:handlebar-helpers',
   version: '0.1.3',
-  summary: "Handlebar helpers"
+  summary: "Handlebar helpers",
+  git: "https://github.com/raix/Meteor-handlebar-helpers.git"
 });
 
 Package.on_use(function (api) {
