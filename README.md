@@ -74,6 +74,7 @@ Example:
 `Helpers.removeScope(name);`
 
 ###getText translation
+[CLIENT/SERVER]
 adds a global getText(notation)
 Expects a global object to contain translations - fallsback if not found.
 ```js
