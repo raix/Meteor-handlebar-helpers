@@ -11,7 +11,7 @@ if (typeof Helpers === 'undefined') {
 // getText('Say.Hello.To.Me') == 'Say Hello To Me:)'; // camelCase
 // getText('SAy.hello.to.me') == 'Say hello To me:)'; // ignore case sensitivity
 
-var _languageDeps = new Deps.Dependency();
+var _languageDeps = (Meteor.isClient)?new Deps.Dependency():null;
 var currentLanguage = 'en';
 
 // language = 'en'
