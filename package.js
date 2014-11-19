@@ -1,20 +1,37 @@
 Package.describe({
   name: 'raix:handlebar-helpers',
-  version: '0.1.3',
+  version: '0.1.4-pre1',
   summary: "Handlebar helpers"
 });
 
 Package.on_use(function (api) {
-  // Spark engine requires 'handlebars', Meteor UI requires 'templating'
-  api.use([
-    'ui@1.0.0',
-    'session@1.0.0',
-    'underscore@1.0.0',
-    'deps@1.0.0'
-  ], 'client'); //Needed by helpers for test and live,
+  if (api.versionsFrom) {
 
-  api.export && api.export('Helpers');
+    api.versionsFrom('1.0');
 
+    // Spark engine requires 'handlebars', Meteor UI requires 'templating'
+    api.use([
+      'ui',
+      'session',
+      'underscore',
+      'deps'
+    ], 'client'); //Needed by helpers for test and live,
+
+  } else {
+
+    // Spark engine requires 'handlebars', Meteor UI requires 'templating'
+    api.use([
+      'ui',
+      'session',
+      'underscore',
+      'deps'
+    ], 'client'); //Needed by helpers for test and live,
+
+
+  }
+  
+  api.export('Helpers');
+  api.add_files('common.js', ['client', 'server']);
   api.add_files('helpers.operators.js', 'client');
 });
 
@@ -24,8 +41,13 @@ Package.on_test(function (api) {
            'test-helpers', 
            'session', 
            'templating',
-           'mongo-livedata',
-           'raix:handlebar-helpers']);
+           'mongo-livedata']);
+
+  if (api.versionsFrom) {
+    api.use('raix:handlebar-helpers');
+  } else {
+    api.use('handlebar-helpers');
+  }
   
   api.add_files(['helpers_tests.html',
                  'helpers_tests.js',
