@@ -38,7 +38,7 @@ There are some simple handlers
 
 ####1. Install:
 ```
-    mrt add handlebar-helpers
+    meteor add raix:handlebar-helpers
 ```
 *Requires ```Meteorite``` get it at [atmosphere.meteor.com](https://atmosphere.meteor.com)*
 
