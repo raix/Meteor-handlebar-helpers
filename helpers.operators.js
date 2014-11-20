@@ -82,8 +82,9 @@ if (typeof UI !== 'undefined') {
         return new Spacebars.SafeString(nl2br);
     });
 
-    UI.registerHelper('getText', function (text) { // Deprecating
-      return Helpers.getText(text);
+    UI.registerHelper('getText', function (text, lang) { // Deprecating
+      var langKey = lang || null;
+      return Helpers.getText(text, langKey);
     });
 
     // UI.registerHelper('userRole', function ( /* arguments */) {
