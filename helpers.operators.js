@@ -86,7 +86,24 @@ if (typeof UI !== 'undefined') {
       var langKey = lang || null;
       return Helpers.getText(text, langKey);
     });
-
+    UI.registerHelper("mappedEach", function(arr) {
+    if(!Array.isArray(arr)){
+      try {
+        arr = arr.fetch()
+      }
+      catch (e){
+        console.log("Error in mappedEach: perhaps you aren't sending in a collection or array.")
+        return [];
+      }
+    }
+    var mappedArray = arr.map(function(item,index) {
+      item.$index = index;
+      item.$first = index === 0;
+      item.$last  = index === arr.length-1;
+      return item;
+    });
+    return mappedArray || [];
+  });
     // UI.registerHelper('userRole', function ( /* arguments */) {
     //   var role = Session.get('currentRole');
     //   return _.any(arguments, function(value) { return (value == role); });
