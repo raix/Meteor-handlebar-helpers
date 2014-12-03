@@ -29,7 +29,7 @@ There are some simple handlers
 * {{$and a b}}
 * {{$or a b}}
 * {{$not a}}
-* {{mappedEach cursor}} *can take cursor or array*
+* {{$mapped cursor}} *can take cursor or array*
 * {{$exists a}} *a != undefined*
 * {{getText notation}} *translation!!*
 
@@ -62,10 +62,10 @@ Hmm, I am client right? {{$.Meteor.isClient}}
 ```
 *You can access any global objects/functions/variables - and it's still reactive!!*
 
-###Mapped each
+###$mapped
 Mapped each will map $first, $last, and $index onto your cursor or array
 ```html
-{{#each mappedEach myCursor}}
+{{#each $mapped myCursor}}
     {{name}}{{#unless $last}},{{/unless}}
 {{/each}}
 ```
