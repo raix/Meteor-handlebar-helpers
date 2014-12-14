@@ -83,7 +83,7 @@ if (typeof UI !== 'undefined') {
     });
 
     UI.registerHelper('getText', function (text, lang) { // Deprecating
-      var langKey = (typeof lang === 'string') ? lang : null;
+      var langKey = lang || null;
       return Helpers.getText(text, langKey);
     });
     
