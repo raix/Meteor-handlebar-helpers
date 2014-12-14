@@ -56,6 +56,6 @@ var handleCase = function (text, src) {
 Helpers.getText = function (text, lang) {
   var txt = text.toLowerCase();
   var langText = languageText && languageText[txt];
-  var langKey = _.isString(lang) ? lang : Helpers.language();
+  var langKey = (typeof lang === 'string') ? lang : Helpers.language();
   return handleCase(text, (langText) ? ( (langText[langKey]) ? langText[langKey] : langText.en) : '[' + text + ']');
 };
