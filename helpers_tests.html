@@ -8,7 +8,7 @@
   {{$.Session.get 'test'}}
 </template>
 
-<!-- Test sessionEquals -->
+<!-- Test $.Session.equals -->
 
 <template name="test_helpers_20">
   {{$.Session.equals 'test' 'sdfsdfdsf'}}
@@ -28,11 +28,11 @@
 
 <!-- This still fails:
 <template name="test_helpers_24">
-  {{sessionEquals 'test' {foo: 'bar'} }}
+  {{$.Session.equals 'test' {foo: 'bar'} }}
 </template> -->
 
 <template name="test_helpers_24">
-  {{sessionEquals 'test' value }}
+  {{$.Session.equals 'test' value }}
 </template>
 
 <template name="test_helpers_25">
@@ -67,4 +67,33 @@
 
 <template name="test_helpers_34">
   {{#each find 'testCollection' '{}'}}{{a}}{{else}}none{{/each}}
+</template>
+
+<!-- Test getText -->
+<template name="test_helpers_40">
+  {{getText 'say.hello.to.me'}}
+</template>
+
+<template name="test_helpers_41">
+  {{getText 'Say.hello.to.me'}}
+</template>
+
+<template name="test_helpers_42">
+  {{getText 'Say.Hello.To.Me'}}
+</template>
+
+<template name="test_helpers_43">
+  {{getText 'SAY.HELLO.TO.ME'}}
+</template>
+
+<template name="test_helpers_44">
+  {{getText 'SAy.hello.to.me'}}
+</template>
+
+<template name="test_helpers_45">
+  {{getText 'this.is.not.found'}}
+</template>
+
+<template name="test_helpers_46">
+  {{getText 'foo.bar'}}
 </template>
