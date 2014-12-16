@@ -83,19 +83,23 @@ Example:
 
 ###getText translation
 [CLIENT/SERVER]
-adds a global getText(notation)
+Adds a global getText(notation)
 Expects a global object to contain translations - fallsback if not found.
 ```js
     // expects an global array: 
     // its ok if translation is not completed, it fallsback
-    languageText = {
+   
+    Helpers.setDictionary({
         'say.hello.to.me': { 
             en: 'Say hello to me :)'
         },
         'add.organisation': { 
             da: 'Tilføj Organisation', en: 'Add Organisation' 
         }
-    };
+    });
+
+    // Use to extend the dictionary
+    Helpers.addDictionary({})
 
     // Define case on the run ex.:
     getText('say.hello.to.me') == 'say hello to me :)'; // lowercase

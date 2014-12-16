@@ -3,6 +3,8 @@ if (typeof Helpers === 'undefined') {
   Helpers = {};
 }
 
+var languageText = {};
+
 // expects an array: languageText['say.hello.to.me']['en'] = 'Say hello to me:)';
 // ex.:
 // getText('Say.Hello.To.Me') == 'say hello to me:)'; // lowercase
@@ -25,6 +27,14 @@ Helpers.setLanguage = function (language) {
 Helpers.language = function () {
   if (Meteor.isClient) _languageDeps.depend();
   return currentLanguage;
+};
+
+Helpers.setDictionary = function(dict) {
+  languageText = dict;
+};
+
+Helpers.addDictionary = function(dict) {
+  _.extend(languageText, dict);
 };
 
 // handleCase will mimic text Case making src same case as text
