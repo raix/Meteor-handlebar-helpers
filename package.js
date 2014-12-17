@@ -13,10 +13,10 @@ Package.onUse(function (api) {
   api.use([
     'ui',
     'session', // we add Session to the helper scope
-    'underscore', // Uses _.bind
     'deps'
   ], 'client'); //Needed by helpers for test and live,
-  
+  api.use('underscore', ['client', 'server']);
+
   api.export('Helpers');
   api.addFiles('common.js', ['client', 'server']);
   api.addFiles('helpers.operators.js', 'client');
