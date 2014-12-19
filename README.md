@@ -1,13 +1,14 @@
 #raix:Handlebar-helpers [![Build Status](https://travis-ci.org/raix/Meteor-handlebar-helpers.png?branch=master)](https://travis-ci.org/raix/Meteor-handlebar-helpers)
 
-####Important!
-Current version is on Blaze, if you need to use the spark version its on `0.0.9`
+#### Important!
 
-Is a simple way of using sessions and collections in the Meteor handlebars template environment
+Current version uses Blaze. If you need to use the Spark version, get `0.0.9`.
 
-Have a look at [Live example](http://handlebar-helpers.meteor.com/)
+This package provides a simple way of using sessions and collections in the Meteor Spacebars template environment.
 
-There are some simple handlers
+Have a look at the [Live example](http://handlebar-helpers.meteor.com/)
+
+Here are some simple helpers:
 * __{{$.javascript /* arguments */ }}  // The new $cript helper__
 * {{$.Session.get key}}
 * {{$.Session.equals key value}}
@@ -35,59 +36,70 @@ There are some simple handlers
 
 *A special credit goes to @belisarius222 aka Ted Blackman for sparking an idear for a solution for the new $uper helper, Thanks Ted!*
 
-##How to use?
+## Usage
 
-####1. Install:
+#### 1. Install:
 ```
     meteor add raix:handlebar-helpers
 ```
-*Requires ```Meteorite``` get it at [atmosphere.meteor.com](https://atmosphere.meteor.com)*
 
 
-###The new `$` !
-You can now call javascript functions or get variables in directly - *no use of `eval`*
-*At the moment only scope allowed is `Session`, `Meteor`, `console` a way to add more scope eg. collections or other is in the works*
+### The new `$` !
+You can now call JavaScript functions or get variables in directly - *no use of `eval`*
+*At the moment the only scopes allowed are `Session`, `Meteor`, and `console`. A way to add more scopes, e.g. Collections or others, is in the works*.
+
 ```html
 Read my session: {{$.Session.get 'mySession'}}
 
-Is my session equal to 4?: {{$.Session.equals 'mySession' 4}}
+Is mySession equal to 4?: {{$.Session.equals 'mySession' 4}}
 
 Does this helper render??: {{$.console.log 'Nope Im writing to the console log...'}}
 
-What user id do I got: {{$.Meteor.userId}}
+What user id do I have: {{$.Meteor.userId}}
 
-What's the connection status?: {{$.Meteor.status.status}}
+What's the connection status?: {{$.Meteor.status.connected}}
 
 Hmm, I am client right? {{$.Meteor.isClient}}
 ```
 *You can access any global objects/functions/variables - and it's still reactive!!*
 
-###$mapped
+
+### $mapped
+
 Mapped each will map $first, $last, and $index onto your cursor or array
 ```html
 {{#each $mapped myCursor}}
     {{name}}{{#unless $last}},{{/unless}}
 {{/each}}
 ```
-###Add objects to the $cope
+
+### Add objects to the $cope
+
 Use the `Helpers.addScope(name, obj)` to add objects into the `$` scope.
+
 Example:
 ```js
   Helpers.addScope('Session', Session);
   Helpers.addScope('Meteor', Meteor);
 ```
-*It's the default scope and allows javascript access {{$.Meteor.isClient}} etc.*
+*It's the default scope and it allows JavaScript access: {{$.Meteor.isClient}} etc.*
 
-###Remove objects from scope
+
+### Remove objects from scope
 `Helpers.removeScope(name);`
 
-###getText translation
+
+### getText translation
+
 [CLIENT/SERVER]
+
 Adds a global getText(notation)
-Expects a global object to contain translations - fallsback if not found.
+
+Expects a global object to contain translations - falls back if not found.
+
 ```js
-    // expects an global array: 
-    // its ok if translation is not completed, it fallsback
+    // expects a global array: 
+    // it's ok if translation is not completed, it falls back
    
     Helpers.setDictionary({
         'say.hello.to.me': { 
@@ -113,9 +125,11 @@ Expects a global object to contain translations - fallsback if not found.
 ```html
   {{getText 'Say.hello.to.me'}}
 ```
-###Set language
+
+### Set language
+
 Use `Helpers.setLanguage('en');` to change language on the fly.
 
-###Get current language
-Use the reactive `Helpers.language()` to get the current language
+### Get current language
 
+Use the reactive `Helpers.language()` to get the current language
