@@ -28,6 +28,10 @@ if (typeof UI !== 'undefined') {
       return (str.length > len)?str.substr(0, Math.max(len-3, 0))+'...':str;
     });
 
+    UI.registerHelper('isCordova', function () {
+      return Meteor.isCordova;
+    });
+
     UI.registerHelper('$eq', function (a, b) {
       return (a === b); //Only text, numbers, boolean - not array & objects
     });
