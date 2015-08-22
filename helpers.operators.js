@@ -98,7 +98,10 @@ if (typeof UI !== 'undefined') {
       }
     }
     
+    var $length = arr.length;
+    
     var mappedArray = arr.map(function(item,index) {
+      item.$length = $length;
       item.$index = index;
       item.$first = index === 0;
       item.$last  = index === arr.length-1;
