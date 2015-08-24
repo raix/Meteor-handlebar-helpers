@@ -104,7 +104,7 @@ if (typeof UI !== 'undefined') {
       item.$length = $length;
       item.$index = index;
       item.$first = index === 0;
-      item.$last  = index === arr.length-1;
+      item.$last  = index === $length-1;
       return item;
     });
     
