@@ -17,11 +17,11 @@ if (typeof UI !== 'undefined') {
     });
 
     UI.registerHelper('isSelected', function (a, b) {
-      return (a === b)?' selected': '';
+      return (a === b) ? 'selected': '';
     });
 
     UI.registerHelper('isChecked', function (a, b) {
-      return (a === b)?' checked': '';
+      return (a === b) ? 'checked': '';
     });
 
     UI.registerHelper('cutString', function (str, len) {
