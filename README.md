@@ -9,7 +9,7 @@ This package provides a simple way of using sessions and collections in the Mete
 Have a look at the [Live example](http://handlebar-helpers.meteor.com/)
 
 Here are some simple helpers:
-* __{{$.javascript /* arguments */ }}  // The new $cript helper__
+* __{{$.javascript /* arguments */ }}  // The new $script helper__
 * {{$.Session.get key}}
 * {{$.Session.equals key value}}
 * {{getLength a}} *returns length property*
