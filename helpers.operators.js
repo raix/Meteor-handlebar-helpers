@@ -87,7 +87,8 @@ if (typeof UI !== 'undefined') {
       return Helpers.getText(text, langKey);
     });
     
-  UI.registerHelper("$mapped", function(arr) {
+  UI.registerHelper("$mapped", function(arr, extended) {
+    var extended = extended || false;
     if(!Array.isArray(arr)){
       try {
         arr = arr.fetch()
@@ -105,6 +106,13 @@ if (typeof UI !== 'undefined') {
       item.$index = index;
       item.$first = index === 0;
       item.$last  = index === $length-1;
+      item.$index = index;
+      if (extended) {
+        item.$nextEl = arr[index+1];
+        item.$prevEl = arr[index-1];
+        item.$firstEl = arr[0];
+        item.$lastEl = arr[$length-1];
+      }
       return item;
     });
     
