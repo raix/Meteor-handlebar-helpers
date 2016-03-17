@@ -102,22 +102,23 @@ if (typeof UI !== 'undefined') {
     var $length = arr.length;
     
     var mappedArray = arr.map(function(item,index) {
-      item.$length = $length;
-      item.$index = index;
-      item.$first = index === 0;
-      item.$last  = index === $length-1;
-      item.$index = index;
+      var newItem = _.clone(item);
+      newItem.$length = $length;
+      newItem.$index = index;
+      newItem.$first = index === 0;
+      newItem.$last  = index === $length-1;
+      newItem.$index = index;
       if (extended) {
-        item.$nextEl = arr[index+1];
-        item.$prevEl = arr[index-1];
-        item.$firstEl = arr[0];
-        item.$lastEl = arr[$length-1];
+        newItem.$nextEl = arr[index+1];
+        newItem.$prevEl = arr[index-1];
+        newItem.$firstEl = arr[0];
+        newItem.$lastEl = arr[$length-1];
       }
-      return item;
+      return newItem;
     });
     
     return mappedArray || [];
-  });
+});
   
     // UI.registerHelper('userRole', function ( /* arguments */) {
     //   var role = Session.get('currentRole');
