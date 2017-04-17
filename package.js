@@ -20,6 +20,7 @@ Package.onUse(function (api) {
   api.export('Helpers');
   api.addFiles('common.js', ['client', 'server']);
   api.addFiles('helpers.operators.js', 'client');
+  api.addFiles('helpers.utils.js', 'client');
 });
 
 Package.onTest(function (api) {

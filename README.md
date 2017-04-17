@@ -33,6 +33,7 @@ Here are some simple helpers:
 * {{$mapped cursor}} *can take cursor or array*
 * {{$exists a}} *a != undefined*
 * {{getText notation}} *translation!!*
+* {{$log val}} *logs to the console and returns the `val`*
 
 *A special credit goes to @belisarius222 aka Ted Blackman for sparking an idear for a solution for the new $uper helper, Thanks Ted!*
 
@@ -55,7 +56,7 @@ Is mySession equal to 4?: {{$.Session.equals 'mySession' 4}}
 
 Does this helper render??: {{$.console.log 'Nope Im writing to the console log...'}}
 
-What user id do I have: {{$.Meteor.userId}}
+What user id do I have: {{$log $.Meteor.userId}}
 
 What's the connection status?: {{$.Meteor.status.connected}}
 
