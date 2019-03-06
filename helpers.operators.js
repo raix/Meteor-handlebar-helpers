@@ -78,7 +78,14 @@ if (typeof UI !== 'undefined') {
     });
 
     UI.registerHelper('nl2br', function (text) {
-        var nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
+        var nl2br = text + '';
+
+        // Secure input (prevent XSS attacks).
+        nl2br = nl2br.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&apos;');
+
+        // Perform nl2br
+        nl2br = nl2br.replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2');
+
         return new Spacebars.SafeString(nl2br);
     });
 
