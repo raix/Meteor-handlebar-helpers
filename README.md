@@ -1,3 +1,5 @@
+# DEPRECATED: This package is no longer maintained
+
 #raix:Handlebar-helpers [![Build Status](https://travis-ci.org/raix/Meteor-handlebar-helpers.png?branch=master)](https://travis-ci.org/raix/Meteor-handlebar-helpers)
 
 #### Important!
