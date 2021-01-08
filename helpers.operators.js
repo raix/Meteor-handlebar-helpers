@@ -36,12 +36,24 @@ if (typeof UI !== 'undefined') {
       return (a !== b); //Only text, numbers, boolean - not array & objects
     });
 
-    UI.registerHelper('$in', function (a, b, c, d) {
-      return ( a === b || a === c || a === d);
+    var slice = [].slice;
+
+    UI.registerHelper('$in', function() {
+      var a, b;
+      a = arguments[0], b = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      if (b.length === 1 && Array.isArray(b[0])) {
+        b = b[0];
+      }
+      return b.indexOf(a) > -1;
     });
 
-    UI.registerHelper('$nin', function (a, b, c, d) {
-      return ( a !== b && a !== c && a !== d);
+    UI.registerHelper('$nin', function() {
+      var a, b;
+      a = arguments[0], b = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      if (b.length === 1 && Array.isArray(b[0])) {
+        b = b[0];
+      }
+      return b.indexOf(a) === -1;
     });
 
     UI.registerHelper('$exists', function (a) {
