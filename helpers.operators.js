@@ -94,7 +94,8 @@ if (typeof UI !== 'undefined') {
       return Helpers.getText(text, langKey);
     });
     
-  UI.registerHelper("$mapped", function(arr) {
+  UI.registerHelper("$mapped", function(arr, extended) {
+    var extended = extended || false;
     if(!Array.isArray(arr)){
       try {
         arr = arr.fetch()
@@ -108,15 +109,23 @@ if (typeof UI !== 'undefined') {
     var $length = arr.length;
     
     var mappedArray = arr.map(function(item,index) {
-      item.$length = $length;
-      item.$index = index;
-      item.$first = index === 0;
-      item.$last  = index === $length-1;
-      return item;
+      var newItem = _.clone(item);
+      newItem.$length = $length;
+      newItem.$index = index;
+      newItem.$first = index === 0;
+      newItem.$last  = index === $length-1;
+      newItem.$index = index;
+      if (extended) {
+        newItem.$nextEl = arr[index+1];
+        newItem.$prevEl = arr[index-1];
+        newItem.$firstEl = arr[0];
+        newItem.$lastEl = arr[$length-1];
+      }
+      return newItem;
     });
     
     return mappedArray || [];
-  });
+});
   
     // UI.registerHelper('userRole', function ( /* arguments */) {
     //   var role = Session.get('currentRole');
